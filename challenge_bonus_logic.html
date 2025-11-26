@@ -3,24 +3,6 @@
 <head>
     <title>Bonus Challenge — Type Coercion Flaw</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .container {
-            max-width: 500px;
-            margin: auto;
-        }
-        input {
-            display: block;
-            margin: 10px 0;
-            padding: 8px;
-            width: 100%;
-        }
-        .challenge {
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
@@ -28,13 +10,9 @@
 
     <div class="challenge">
         <p>
-            The system checks a secret admin passcode.<br>
+            The system checks a secret 4 digit admin passcode.<br>
             However, the developer made a dangerous logic mistake  
             involving JavaScript's <strong>type coercion</strong>.
-        </p>
-
-        <p>
-            Try unusual values — not just numbers.
         </p>
 
         <input id="codeInput" placeholder="Enter passcode">
@@ -44,18 +22,21 @@
     </div>
 
     <script>
-        // Developer intended strict matching:
-        //    if (input === 0)
+        // Intended:
+        //    if (input === secret)
         //
-        // But mistakenly used loose comparison (==)
-        // allowing many values to incorrectly match.
+        // Vulnerable version:
+        //    if (Number(input) == secret)
 
         const secret = 0;
 
         function checkCode() {
-            const input = document.getElementById("codeInput").value;
+            const raw = document.getElementById("codeInput").value;
 
-            if (input == secret) {   // ❗ Type coercion vulnerability
+            // Developer "sanitizes" input by converting to a number (bad idea)
+            const coerced = Number(raw);
+
+            if (coerced == secret) {
                 document.getElementById("codeResult").innerHTML =
                     "Access granted!<br><strong>flag{simple_ctf_logic}</strong>";
             } else {
@@ -67,4 +48,3 @@
 </div>
 </body>
 </html>
-
