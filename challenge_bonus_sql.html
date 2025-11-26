@@ -17,18 +17,32 @@
 
     <p id="result"></p>
 
-    <script>
-        function login() {
-            const user = document.getElementById("user").value;
+<script>
+    function login() {
+        const user = document.getElementById("user").value.trim();
 
-            if (user === "admin' OR '1'='1") {
-                document.getElementById("result").innerHTML =
-                    "Login bypassed!<br><strong>flag{simple_ctf_sql}</strong>";
-            } else {
-                document.getElementById("result").innerText = "Invalid username.";
-            }
+        // Define pattern as a string so JS doesn't treat comment markers as JS comments
+        const patternString = [
+            "((['\"]?\\s*OR\\s+['\"]?\\d+['\"]?\\s*=\\s*['\"]?\\d+))",  // OR 1=1
+            "(--|#|\\/\\*)",                                           // comments: --  #  /*
+            "(\\bUNION\\b\\s+\\bSELECT\\b)",                           // UNION SELECT
+            "(\\bDROP\\b\\s+\\bTABLE\\b)",                             // DROP TABLE
+            "(\\bDELETE\\b\\s+\\bFROM\\b)"                             // DELETE FROM
+        ].join("|");
+
+        const sqlInjectionPattern = new RegExp(patternString, "i");
+
+        if (sqlInjectionPattern.test(user)) {
+            document.getElementById("result").innerHTML =
+                "Login bypassed!<br><strong>flag{simple_ctf_sql}</strong>";
+        } else {
+            document.getElementById("result").innerText = "Invalid username.";
         }
-    </script>
+    }
+</script>
+
+
 </div>
 </body>
 </html>
+
