@@ -21,28 +21,65 @@
     function login() {
         const user = document.getElementById("user").value.trim();
 
-        // Define pattern as a string so JS doesn't treat comment markers as JS comments
-        const patternString = [
+        // --- (1) FULL SQL INJECTION SUCCESS CONDITIONS ---
+        const fullInjectionString = [
             "((['\"]?\\s*OR\\s+['\"]?\\d+['\"]?\\s*=\\s*['\"]?\\d+))",  // OR 1=1
-            "(--|#|\\/\\*)",                                           // comments: --  #  /*
+            "(--|#|\\/\\*)",                                           // comments: -- # /*
             "(\\bUNION\\b\\s+\\bSELECT\\b)",                           // UNION SELECT
             "(\\bDROP\\b\\s+\\bTABLE\\b)",                             // DROP TABLE
             "(\\bDELETE\\b\\s+\\bFROM\\b)"                             // DELETE FROM
         ].join("|");
+        const fullInjection = new RegExp(fullInjectionString, "i");
 
-        const sqlInjectionPattern = new RegExp(patternString, "i");
 
-        if (sqlInjectionPattern.test(user)) {
+        // --- (2) SYNTAX-BREAKING INPUT (feedback to user) ---
+        // Examples:
+        // '   "   ''   "abc   abc'xyz   OR(1=1  ;;;   )(
+        const syntaxBreakPattern =
+            /(['"][^'"]*$)|(^[^'"]*['"]$)|(;{2,})|(\(\))|(\([^)]*$)|(^[^()]*\))|(\bOR\b\s*$)/i;
+
+
+        // --- (3) BASIC INDICATORS THAT USER IS ON THE RIGHT TRACK---
+        const sqliHints =
+            /(('|\"|;|\bOR\b|\bAND\b|\bSELECT\b|\bUNION\b|\bWHERE\b))/i;
+
+
+        // --- LOGIC ---
+
+        // 1. Full SQL injection success → show flag
+        if (fullInjection.test(user)) {
             document.getElementById("result").innerHTML =
                 "Login bypassed!<br><strong>flag{simple_ctf_sql}</strong>";
-        } else {
-            document.getElementById("result").innerText = "Invalid username.";
+            return;
         }
+
+        // 2. Syntax-breaking attempt → tell user they are close
+        if (syntaxBreakPattern.test(user)) {
+            document.getElementById("result").innerHTML =
+                "You've broken the SQL syntax — good!<br>" +
+                "Now try turning it into a valid condition like:<br>" +
+                "<code>' OR 1=1 --</code>";
+            return;
+        }
+
+        // 3. General SQL-ish terms → hint they are on the right track
+        if (sqliHints.test(user)) {
+            document.getElementById("result").innerHTML =
+                "You're on the right track…<br>" +
+                "Try building a full injection, e.g.:<br>" +
+                "<code>' OR 1=1 --</code>";
+            return;
+        }
+
+        // 4. Normal incorrect input
+        document.getElementById("result").innerText = "Invalid username.";
     }
 </script>
+
 
 
 </div>
 </body>
 </html>
+
 
