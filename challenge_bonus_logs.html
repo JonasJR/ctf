@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bonus Challenge — Log Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Bonus Challenge — Log Analysis</h1>
+    <p>
+        Review the following (fake) application logs.  
+        Identify the suspicious IP address to reveal the flag.
+    </p>
+
+    <pre>
+[INFO] 2025-01-04 12:22:10 User login OK from 10.0.0.5
+[WARN] 2025-01-04 12:25:31 Failed login attempt from 192.168.1.50
+[INFO] 2025-01-04 12:27:03 User logout 10.0.0.5
+[ERROR] 2025-01-04 12:29:44 Multiple failed attempts from 192.168.1.50
+    </pre>
+
+    <input id="ip" placeholder="Enter suspicious IP">
+    <button onclick="check()">Submit</button>
+
+    <p id="out"></p>
+
+    <script>
+        function check() {
+            const ip = document.getElementById("ip").value.trim();
+            if (ip === "192.168.1.50") {
+                document.getElementById("out").innerHTML =
+                    "Correct!<br><strong>flag{simple_ctf_logs}</strong>";
+            } else {
+                document.getElementById("out").innerText = "Nope. Look again.";
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

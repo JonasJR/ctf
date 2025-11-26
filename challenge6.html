@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge 6</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Challenge 6 — Cookie Challenge</h1>
+    <p>This page checks your cookie value to determine if you are an admin.</p>
+
+    <p id="flag"></p>
+
+    <script>
+        function getCookie(name) {
+            return document.cookie
+                .split('; ')
+                .find(row => row.startsWith(name + '='))
+                ?.split('=')[1];
+        }
+
+        if (getCookie("role") === "admin") {
+            document.getElementById("flag").innerText =
+                "flag{simple_ctf_cookie}";
+        } else {
+            document.getElementById("flag").innerText =
+                "Cookie not set. Try: document.cookie = 'role=admin'";
+        }
+    </script>
+</div>
+</body>
+</html>

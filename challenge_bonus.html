@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bonus Challenge — Reflected Input</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Bonus Challenge — Reflected Input</h1>
+    <p>
+        This page reflects your input directly back onto the page.<br>
+        Try entering something interesting into the text box.
+    </p>
+
+    <input id="msg" placeholder="Type something">
+    <button onclick="reflect()">Submit</button>
+
+    <h3>Output:</h3>
+    <div id="output" style="
+        padding: 10px;
+        background: #eee;
+        border-radius: 6px;
+        min-height: 40px;"></div>
+
+    <script>
+        function reflect() {
+            const userInput = document.getElementById("msg").value;
+
+            // NOTE: This is intentionally insecure for learning!
+            document.getElementById("output").innerHTML = userInput;
+
+            // The "flag" is only revealed if the user attempts a script-like input,
+            // but nothing dangerous actually executes.
+            if (userInput.includes("<script>")) {
+                document.getElementById("output").innerHTML +=
+                    "<br><br><strong>flag{simple_ctf_bonus_xss}</strong>";
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

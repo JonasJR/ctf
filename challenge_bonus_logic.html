@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bonus Challenge — Logic Flaw</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Bonus Challenge — Logic Flaw</h1>
+    <p>
+        This page simulates a password reset verification step.<br>
+        The code contains a logic bug — can you spot it?
+    </p>
+
+    <input id="email" placeholder="Your email">
+    <button onclick="reset()">Reset Password</button>
+
+    <p id="result"></p>
+
+    <script>
+        function reset() {
+            const email = document.getElementById("email").value;
+
+            // Intentional faulty logic:
+            // ANY email containing "@admin" is incorrectly treated as verified.
+            if (email.includes("@admin")) {
+                document.getElementById("result").innerHTML =
+                    "Password reset approved!<br><strong>flag{simple_ctf_logic}</strong>";
+            } else {
+                document.getElementById("result").innerText =
+                    "Verification failed.";
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

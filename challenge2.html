@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Challenge 2 — JavaScript Password</h1>
+    <p>Enter the password to reveal the flag:</p>
+
+    <input id="pwd" placeholder="Password">
+    <button onclick="check()">Submit</button>
+
+    <p id="result"></p>
+
+    <script>
+        function check() {
+            let p = document.getElementById("pwd").value;
+            if (p === "SecurityRocks") {
+                document.getElementById("result").innerText =
+                    "Correct! flag{simple_ctf_js}";
+            } else {
+                document.getElementById("result").innerText = "Wrong password.";
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

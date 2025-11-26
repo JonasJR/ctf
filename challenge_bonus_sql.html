@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bonus Challenge — SQL Injection Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Bonus Challenge — SQL Injection Simulation</h1>
+    <p>
+        This is a safe, simulated login system. No real database exists.<br>
+        Try entering something interesting as your username.
+    </p>
+
+    <input id="user" placeholder="username">
+    <button onclick="login()">Login</button>
+
+    <p id="result"></p>
+
+    <script>
+        function login() {
+            const user = document.getElementById("user").value;
+
+            if (user === "admin' OR '1'='1") {
+                document.getElementById("result").innerHTML =
+                    "Login bypassed!<br><strong>flag{simple_ctf_sql}</strong>";
+            } else {
+                document.getElementById("result").innerText = "Invalid username.";
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
