@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Challenge 2</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Challenge 2 — JavaScript Console</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <div class="container">
-    <h1>Challenge 2 — JavaScript Password</h1>
-    <p>Enter the password to reveal the flag:</p>
+    <h1>Challenge 2 — JavaScript Console</h1>
 
-    <input id="pwd" placeholder="Password">
-    <button onclick="check()">Submit</button>
+    <p>
+        This challenge requires using your browser's <strong>Developer Tools</strong>.  
+        Your task: <strong>Find the hidden flag using the JavaScript console.</strong>
+    </p>
 
-    <p id="result"></p>
+    <h3>Instructions:</h3>
+    <ul>
+        <li>Right-click anywhere on the page</li>
+        <li>Select <strong>Inspect</strong></li>
+        <li>Go to the <strong>Console</strong> tab</li>
+    </ul>
 
-    <script>
-        function check() {
-            let p = document.getElementById("pwd").value;
-            if (p === "SecurityRocks") {
-                document.getElementById("result").innerText =
-                    "Correct! flag{simple_ctf_js}";
-            } else {
-                document.getElementById("result").innerText = "Wrong password.";
-            }
-        }
-    </script>
+    <p>
+        Once you open the console, you should see a message that will help you.
+    </p>
 </div>
+
+<script>
+// A friendly starting message
+console.log("%cWelcome to Challenge 2!", "color: green; font-size: 16px;");
+console.log("You're in the right place. Look carefully...");
+
+// The flag is hidden in this variable
+const hiddenFlag = "flag{simple_ctf_js}";
+
+// But we don't show it unless the student knows to type:
+console.log("Try typing the word: reveal_flag");
+
+// Create a helper function students can call
+function reveal_flag() {
+    console.log("Great job! Here's your flag:");
+    console.log(hiddenFlag);
+}
+</script>
 </body>
 </html>
