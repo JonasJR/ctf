@@ -1,34 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bonus Challenge — Logic Flaw</title>
+    <title>Bonus Challenge — Type Coercion Flaw</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+        }
+        .challenge {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1>Bonus Challenge — Logic Flaw</h1>
-    <p>
-        This page simulates a password reset verification step.<br>
-        The code contains a logic bug — can you spot it?
-    </p>
+    <h1>Bonus Challenge — Type Coercion</h1>
 
-    <input id="email" placeholder="Your email">
-    <button onclick="reset()">Reset Password</button>
+    <div class="challenge">
+        <p>
+            The system checks a secret admin passcode.<br>
+            However, the developer made a dangerous logic mistake  
+            involving JavaScript's <strong>type coercion</strong>.
+        </p>
 
-    <p id="result"></p>
+        <p>
+            Try unusual values — not just numbers.
+        </p>
+
+        <input id="codeInput" placeholder="Enter passcode">
+        <button onclick="checkCode()">Submit</button>
+
+        <p id="codeResult"></p>
+    </div>
 
     <script>
-        function reset() {
-            const email = document.getElementById("email").value;
+        // Developer intended strict matching:
+        //    if (input === 0)
+        //
+        // But mistakenly used loose comparison (==)
+        // allowing many values to incorrectly match.
 
-            // Intentional faulty logic:
-            // ANY email containing "@admin" is incorrectly treated as verified.
-            if (email.includes("@admin")) {
-                document.getElementById("result").innerHTML =
-                    "Password reset approved!<br><strong>flag{simple_ctf_logic}</strong>";
+        const secret = 0;
+
+        function checkCode() {
+            const input = document.getElementById("codeInput").value;
+
+            if (input == secret) {   // ❗ Type coercion vulnerability
+                document.getElementById("codeResult").innerHTML =
+                    "Access granted!<br><strong>flag{logic_type_coercion}</strong>";
             } else {
-                document.getElementById("result").innerText =
-                    "Verification failed.";
+                document.getElementById("codeResult").innerText =
+                    "Access denied.";
             }
         }
     </script>
