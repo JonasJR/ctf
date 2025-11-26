@@ -21,9 +21,8 @@ This CTF is built entirely with **static HTML, CSS, and JavaScript**, so no spec
 3. Explore optional **bonus challenges**:
 - Reflected Input (XSS Awareness)  
 - Crypto Puzzle (ROT13)  
-- SQL Injection Simulation (Safe)  
-- Steganography (Filename Clue)  
-- Logic Flaw / Auth Bypass  
+- SQL Injection Simulation
+- Steganography  
 - Log Analysis  
 
 4. Use the **Progress Tracker** to submit flags and monitor your own progress.  
