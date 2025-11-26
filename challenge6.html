@@ -18,15 +18,24 @@
                 .find(row => row.startsWith(name + '='))
                 ?.split('=')[1];
         }
-
+    
+        // If the cookie doesn't exist, set a default one
+        if (!getCookie("role")) {
+            // Set cookie to expire in 1 day
+            document.cookie = "role=user; path=/; max-age=86400";
+        }
+    
+        // Check cookie value
         if (getCookie("role") === "admin") {
             document.getElementById("flag").innerText =
                 "flag{simple_ctf_cookie}";
         } else {
             document.getElementById("flag").innerText =
-                "Cookie not set. Try: document.cookie = 'role=admin'";
+                "Cookie not set to admin. Try: document.cookie = 'role=admin'";
         }
     </script>
+
 </div>
 </body>
 </html>
+
