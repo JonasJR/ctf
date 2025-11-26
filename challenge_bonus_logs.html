@@ -3,20 +3,68 @@
 <head>
     <title>Bonus Challenge — Log Analysis</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        pre {
+            max-height: 500px;
+            overflow-y: scroll;
+            background: #f7f7f7;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>Bonus Challenge — Log Analysis</h1>
     <p>
-        Review the following (fake) application logs.  
+        Review the following application logs.<br>
         Identify the suspicious IP address to reveal the flag.
     </p>
 
     <pre>
+[INFO] 2025-01-04 12:20:01 Server started successfully.
+[INFO] 2025-01-04 12:20:02 Health check OK from 127.0.0.1
+[INFO] 2025-01-04 12:21:14 Cron job executed: cleanup-temp
 [INFO] 2025-01-04 12:22:10 User login OK from 10.0.0.5
+[INFO] 2025-01-04 12:22:55 GET /api/user?id=12 from 54.23.12.90
+[INFO] 2025-01-04 12:23:34 User login OK from 172.16.0.22
+[WARN] 2025-01-04 12:24:11 Password attempt limit nearing from 172.16.0.22
+[WARN] 2025-01-04 12:24:49 GET /admin without auth from 203.0.113.9
+[WARN] 2025-01-04 12:25:12 Slow request detected from 44.192.33.10
 [WARN] 2025-01-04 12:25:31 Failed login attempt from 192.168.1.50
-[INFO] 2025-01-04 12:27:03 User logout 10.0.0.5
+[INFO] 2025-01-04 12:25:50 User logout from 172.16.0.22
+[INFO] 2025-01-04 12:26:02 POST /api/updateProfile from 172.16.0.22
+[INFO] 2025-01-04 12:26:18 User login OK from 10.0.0.5
+[INFO] 2025-01-04 12:27:03 User logout from 10.0.0.5
+[INFO] 2025-01-04 12:27:23 GET /robots.txt from 18.202.14.120
+[INFO] 2025-01-04 12:27:55 GET /api/data from 203.0.113.9
+[WARN] 2025-01-04 12:28:10 Suspicious request pattern from 203.0.113.9
+[WARN] 2025-01-04 12:28:36 GET /api/export?dump=true from 203.0.113.9
+[INFO] 2025-01-04 12:28:58 User login OK from 10.0.0.5
 [ERROR] 2025-01-04 12:29:44 Multiple failed attempts from 192.168.1.50
+[ERROR] 2025-01-04 12:30:12 Possible brute-force activity from 192.168.1.50
+[WARN] 2025-01-04 12:30:44 Invalid API key used from 198.51.100.21
+[INFO] 2025-01-04 12:31:02 GET /styles.css from 44.192.33.10
+[INFO] 2025-01-04 12:31:20 User login OK from 10.0.0.5
+[WARN] 2025-01-04 12:31:55 Session expired for 172.16.0.22
+[INFO] 2025-01-04 12:32:10 GET /favicon.ico from 54.23.12.90
+[WARN] 2025-01-04 12:32:40 Session expired for 172.16.0.22
+[INFO] 2025-01-04 12:33:14 Health check OK from 127.0.0.1
+[INFO] 2025-01-04 12:34:16 Cron job executed: rebuild-index
+[WARN] 2025-01-04 12:34:40 High memory usage detected.
+[INFO] 2025-01-04 12:35:21 GET /api/metrics from 203.0.113.9
+[INFO] 2025-01-04 12:35:44 User login OK from 172.16.0.22
+[ERROR] 2025-01-04 12:36:03 Login attempt on locked account from 192.168.1.50
+[INFO] 2025-01-04 12:36:28 GET /api/config from 44.192.33.10
+[INFO] 2025-01-04 12:37:01 POST /api/changePassword from 10.0.0.5
+[WARN] 2025-01-04 12:37:49 Invalid session token from 54.23.12.90
+[INFO] 2025-01-04 12:38:24 GET / from 203.0.113.9
+[ERROR] 2025-01-04 12:38:50 Excessive failed logins from 192.168.1.50
+[INFO] 2025-01-04 12:39:31 User logout from 172.16.0.22
+[WARN] 2025-01-04 12:40:10 GET /admin/settings from 203.0.113.9
+[INFO] 2025-01-04 12:41:02 Health check OK from 127.0.0.1
+[ERROR] 2025-01-04 12:41:55 Automated attack pattern detected from 192.168.1.50
     </pre>
 
     <input id="ip" placeholder="Enter suspicious IP">
