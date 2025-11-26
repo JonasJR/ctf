@@ -2,68 +2,58 @@
 <html>
 <head>
     <title>CTF Instructions</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <div class="container">
-    <h1>Security Champion Mini-CTF — Instructions</h1>
+    <h1>Security Champion Mini CTF — Instructions</h1>
 
-    <p>
-        Welcome to the <strong>Security Champion Mini Capture-the-Flag (CTF)</strong>!  
-        This is a friendly, beginner-level challenge designed to introduce common security
-        concepts in a safe and fun way.  
-        <br><br>
-        No special tools are required — <strong>just a web browser</strong>.
-    </p>
+    <p>Welcome to the Security Champion Mini CTF! This is a **browser-based** CTF, meaning you only need a web browser to participate. No special software or server setup is required.</p>
 
-    <h2>🎯 Goal</h2>
-    <p>Your mission is to solve challenges and collect <strong>flags</strong> that look like:</p>
-    <pre>flag{something_here}</pre>
+    <hr>
 
-    <h2>🕹️ How to Play</h2>
+    <h2>How to Participate</h2>
     <ol>
-        <li>Open the CTF homepage.</li>
-        <li>Start with any challenge.</li>
-        <li>Each challenge hides one flag.</li>
-        <li>Record each flag you find.</li>
-        <li>Submit flags as instructed by your organizer.</li>
+        <li>Start with the <strong>Main Challenges</strong> linked on the <a href="./index.html">home page</a>.</li>
+        <li>Each challenge contains a hidden flag in the format:
+            <pre>flag{something_here}</pre>
+        </li>
+        <li>Enter the flag into the <strong>Progress Tracker</strong> to track your own progress.  
+        The tracker saves progress in your browser (using localStorage) — no backend required.</li>
+        <li>Optional <strong>Bonus Challenges</strong> are available for extra practice.</li>
     </ol>
 
-    <h2>🧩 Challenges Overview</h2>
+    <h2>Submitting Flags</h2>
     <ul>
-        <li>HTML inspection</li>
-        <li>JavaScript password cracking</li>
-        <li>URL manipulation</li>
-        <li>Base64 decoding</li>
-        <li>robots.txt exploration</li>
-        <li>Cookie manipulation</li>
+        <li>Open the <a href="./progress.html">Progress Tracker</a> page.</li>
+        <li>Type the flag you found for each challenge and click <strong>Submit</strong>.</li>
+        <li>If the flag is correct, it will be marked <span style="color:green;">✔ Correct!</span>.</li>
+        <li>Your progress bar and completion stats will update automatically.</li>
+        <li>If stuck, click <strong>Show Hint</strong> to reveal a helpful hint for that challenge.</li>
     </ul>
 
-    <h2>🛠️ Skills You Will Use (All Built-In)</h2>
+    <h2>Hints</h2>
+    <p>Each challenge has an optional hint available in the Progress Tracker.  
+    Hints are designed to guide your thinking without giving the flag away.</p>
+
+    <h2>Tips & Best Practices</h2>
     <ul>
-        <li>Inspect Element</li>
-        <li>View Page Source</li>
-        <li>Browser Developer Console</li>
-        <li>Editing URL parameters</li>
-        <li>Simple online Base64 decoder</li>
+        <li>Use your browser’s <strong>Inspect / Developer Tools</strong> to explore hidden content.</li>
+        <li>Look carefully at page source, URLs, cookies, and page elements.</li>
+        <li>Take your time and think like a security investigator.</li>
+        <li>All challenges are <strong>safe</strong> and run entirely in your browser.</li>
     </ul>
 
-    <h2>⚖️ Rules</h2>
-    <ul>
-        <li>Only interact with the CTF website.</li>
-        <li>Do not attack or scan systems outside this environment.</li>
-        <li>Share hints, not flags.</li>
-        <li>Have fun and learn!</li>
-    </ul>
+    <h2>Flags Format</h2>
+    <p>All flags follow this pattern:</p>
+    <pre>flag{something_here}</pre>
+    <p>Be exact when submitting in the Progress Tracker — capitalization and formatting matter.</p>
 
-    <h2>🏆 Submitting Flags</h2>
-    <p>Your organizer will specify how to submit flags (Google Form, scoreboard, etc.).</p>
+    <h2>Good Luck!</h2>
+    <p>Have fun exploring the challenges, learning new security concepts, and tracking your progress.  
+    🛡️ Welcome to the Security Champion Mini CTF!</p>
 
-    <h2>❓ Need Help?</h2>
-    <p>
-        Try inspecting the page, reading JavaScript, using DevTools, or asking for a small hint.
-    </p>
-
-    <h2>🚀 Ready?</h2>
-    <p><a href="index.html">⬅ Return to CTF Homepage</a></p>
-</div
+    <p><a href="./index.html">Return to Home Page</a></p>
+</div>
+</body>
+</html>
