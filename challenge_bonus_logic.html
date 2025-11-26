@@ -22,21 +22,17 @@
     </div>
 
     <script>
-        // Intended:
-        //    if (input === secret)
-        //
-        // Vulnerable version:
-        //    if (Number(input) == secret)
+        // Real intended secret passcode:
+        const secret = 5731;   // ✔ real 4-digit code
 
-        const secret = 0;
-
+        // But the developer made a mistake:
+        // They convert the input using Number(), allowing many
+        // unintended values to "match" due to type coercion.
         function checkCode() {
             const raw = document.getElementById("codeInput").value;
+            const coerced = Number(raw);  // ❗ vulnerable
 
-            // Developer "sanitizes" input by converting to a number (bad idea)
-            const coerced = Number(raw);
-
-            if (coerced == secret) {
+            if (coerced == secret) {      // ❗ loose comparison
                 document.getElementById("codeResult").innerHTML =
                     "Access granted!<br><strong>flag{simple_ctf_logic}</strong>";
             } else {
