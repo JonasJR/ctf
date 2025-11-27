@@ -61,6 +61,7 @@ This CTF helps participants practice:
 - No backend or server is required.
 - Progress is stored in your browser via `localStorage`.
 - Hints are provided to support learning at your own pace.
+- It is obviously easy to cheat and find the flags in the code, but what is the fun in that?
 
 ---
 
