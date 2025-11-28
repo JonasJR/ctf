@@ -3,12 +3,38 @@
 <head>
     <title>CTF Progress Tracker with Hints</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .challenge-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            background: #f9f9f9;
+        }
+        .challenge-box strong {
+            font-size: 1.1em;
+        }
+        #resetBtn {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #resetBtn:hover {
+            background: #e74c3c;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>CTF Progress Tracker</h1>
-    <p>Enter your flags below to track your own progress. Hints are optional and safe.  
+    <p>Enter your flags below to track your own progress.  
     Your progress is saved locally in your browser.</p>
+
+    <button id="resetBtn" onclick="resetProgress()">Reset All Progress</button>
 
     <hr>
 
@@ -39,7 +65,7 @@ const FLAGS = {
     "Bonus — Log Analysis": "flag{simple_ctf_logs}"
 };
 
-// Hints for each challenge
+// Hints
 const HINTS = {
     "Challenge 1 — HTML Inspection": "Hint: Right-click the page and select 'View Page Source' or 'Inspect'.",
     "Challenge 2 — JavaScript Password": "Hint: Check the JavaScript console. Functions need () to run.",
@@ -54,48 +80,44 @@ const HINTS = {
     "Bonus — Log Analysis": "Hint: Find the repeated suspicious IP in the logs."
 };
 
-// Explanations shown after solving
+// Explanations
 const EXPLANATIONS = {
     "Challenge 1 — HTML Inspection":
-        "This challenge teaches you to inspect HTML source code. Secrets should never be stored in front-end code, since users can always view it.",
-
+        "This challenge teaches you to inspect HTML source code. Secrets should never be stored in front-end code.",
     "Challenge 2 — JavaScript Password":
-        "This teaches you that client-side password checks are insecure. Attackers can read or bypass JavaScript easily.",
-
+        "This teaches you that client-side password checks are insecure.",
     "Challenge 3 — URL Manipulation":
-        "This demonstrates insecure access control via URL parameters. Never rely on client-controlled parameters to set permissions.",
-
+        "Never rely on URL parameters for permissions.",
     "Challenge 4 — Encoding":
-        "This teaches that encoding (like Base64) is NOT encryption. Encoded data is easily reversible and should not be used for security.",
-
+        "Encoding is not encryption.",
     "Challenge 5 — robots.txt":
-        "robots.txt is public and only tells respectful bots where not to go. Never hide sensitive files there.",
-
+        "robots.txt is public and cannot protect sensitive data.",
     "Challenge 6 — Cookie Challenge":
-        "Cookies can be edited by the user. Sensitive data should be validated server-side and stored securely (e.g., signed tokens).",
-
+        "Cookies can be modified — always validate server-side.",
     "Bonus — Reflected Input (XSS Awareness)":
-        "This demonstrates reflected XSS. Always sanitize user input before displaying it back to the page.",
-
+        "Always sanitize user input.",
     "Bonus — Crypto Puzzle (ROT13)":
-        "ROT13 is not real cryptography. This teaches the difference between simple encoding and proper encryption.",
-
+        "ROT13 is simple encoding, not security.",
     "Bonus — SQL Injection Simulation":
-        "This shows why user input must be properly sanitized or parameterized to prevent SQL injection attacks.",
-
+        "Use parameterized queries to prevent SQL injection.",
     "Bonus — Image Metadata":
-        "This teaches that files often contain hidden metadata such as EXIF data or embedded comments. Never store secrets in metadata.",
-
+        "Files may contain hidden metadata.",
     "Bonus — Log Analysis":
-        "This challenge teaches log forensics: patterns, repeated attempts, and suspicious IP addresses help detect attacks."
+        "Log forensics can reveal attack patterns."
 };
 
-// Load saved progress from browser
+// Load saved progress
 let progress = JSON.parse(localStorage.getItem("ctf_progress")) || {};
 
 function saveProgress() {
     localStorage.setItem("ctf_progress", JSON.stringify(progress));
     updateProgressDisplay();
+}
+
+function resetProgress() {
+    localStorage.removeItem("ctf_progress");
+    progress = {};
+    location.reload();
 }
 
 function updateProgressDisplay() {
@@ -114,19 +136,30 @@ const container = document.getElementById("challenges");
 
 Object.keys(FLAGS).forEach(title => {
     const div = document.createElement("div");
-    div.style.marginBottom = "25px";
+    div.className = "challenge-box";
 
     div.innerHTML = `
         <strong>${title}</strong><br>
         <input id="input-${title}" placeholder="Enter flag" style="width:300px;">
         <button onclick="checkFlag('${title}')">Submit</button>
         <span id="result-${title}" style="margin-left:10px;"></span><br>
-        <button onclick="showHint('${title}')" style="margin-top:5px;">Show Hint</button>
-        <div id="hint-${title}" style="margin-top:5px; color:blue;"></div>
+
+        <button onclick="toggleHint('${title}')" style="margin-top:5px;">Show Hint</button>
+        <div id="hint-${title}" style="margin-top:5px; color:blue; display:none;"></div>
+
         <div id="explain-${title}" style="margin-top:10px; color:green; font-style:italic;"></div>
     `;
 
     container.appendChild(div);
+
+    // Restore saved completion state
+    if (progress[title] === true) {
+        document.getElementById(`result-${title}`).innerHTML =
+            "<span style='color:green;'>✔ Correct!</span>";
+
+        document.getElementById(`explain-${title}`).innerText =
+            EXPLANATIONS[title] || "";
+    }
 });
 
 function checkFlag(title) {
@@ -145,9 +178,15 @@ function checkFlag(title) {
     }
 }
 
-function showHint(title) {
+// NEW: toggle hint visibility
+function toggleHint(title) {
     const hintField = document.getElementById(`hint-${title}`);
-    hintField.innerText = HINTS[title];
+    if (hintField.style.display === "none") {
+        hintField.innerText = HINTS[title];
+        hintField.style.display = "block";
+    } else {
+        hintField.style.display = "none";
+    }
 }
 
 updateProgressDisplay();
