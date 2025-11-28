@@ -22,7 +22,7 @@ This CTF is built entirely with **static HTML, CSS, and JavaScript**, so no spec
 - Reflected Input (XSS Awareness)  
 - Crypto Puzzle (ROT13)  
 - SQL Injection Simulation
-- Steganography  
+- MetaMind  
 - Log Analysis  
 
 4. Use the **Progress Tracker** to submit flags and monitor your own progress.  
