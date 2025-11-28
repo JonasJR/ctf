@@ -24,6 +24,7 @@ This CTF is built entirely with **static HTML, CSS, and JavaScript**, so no spec
 - SQL Injection Simulation
 - MetaMind  
 - Log Analysis  
+- MemoryBox
 
 4. Use the **Progress Tracker** to submit flags and monitor your own progress.  
 Your progress is saved locally in your browser.
